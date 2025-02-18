@@ -1,48 +1,33 @@
 import leia from "readline-sync"
-import Jogadores from "./Jogadores";
+import Produtos from "./Produtos";
 
 
-// Você precisa desenvolver um algoritmo para calcular a pontuação de todos os jogadores de um time de futebol. 
-// Nesse momento será analisada apenas a quantidade de gols, passes certos e passes errados. (Utilize Vetor e Objeto)
+// Escreva um programa que permita o cadastro de N produtos. Para cada produto, solicite o nome e o preço. 
+// Armazene os dados em um vetor de objetos. Ao final, o programa deve:
 
-// Cada Gol: 50 Pontos
-// Cada Passe Certo: 10 Pontos
-// Cada Passe Errado: -5 Pontos
-// Você deve solicitar o nome do jogador, quantidade de gols, numero de passes certos e quantidade de passes errados. 
-// O algoritmo deve calcular a pontuação de cada jogador e informar se o jogador foi bem ou mal na partida, 
-// levando como base a seguinte tabela. No final, deve apresentar o jogador com melhor pontuação. 
-// Lembre-se que um time de futebol tem 10 jogadores de linha.
-
-// Pontuação < 50 - Péssima partida.
-// Pontuação de 50 até 100 - Partida ruim.
-// Pontuação de 100 até 150 - Fez o básico
-// Pontuação de 150 até 200 - Foi bem na partida
-// Pontuação acima de 200 - Jogou demais
+// IMPRIMIR O NOME E O PREÇO DE CADA PRODUTO.
+// CALCULAR E EXIBIR O PREÇO MÉDIO DOS PRODUTOS.
+// CALCULAR E EXIBIR O PREÇO TOTAL
 
 
 
-export default function atividade05() {
-  let jogadores: Jogadores[] = []
 
-  for(let i = 0; i < 10; i++){
-    let nome = leia.question("INFORME O NOME DO JOGADOR: ")
-    let gols = leia.questionInt("INFORME O QUANTIDADE DE GOLS: ")
-    let acertos = leia.questionInt("INFORME O QUANTIDADE DE ACERTOS: ")
-    let erros = leia.questionInt("INFORME O QUANTIDADE DE ERROS: ")
-    const jogador = new Jogadores(nome, gols, acertos, erros)
-    jogadores.push(jogador);
+export default function atividade06() {
+  let nome;
+  let produtos: Produtos[] = []
+  while (nome = leia.question("INFORME O NOME DO PRODUTO: ")) {
+    let preco = leia.questionFloat("INFORME O PREÇO DO PRODUTO: ");
+    const produto = new Produtos(nome, preco);
+    produtos.push(produto);
+    console.log("INFORME NOVO PRODUTO OU DEIXE O CAMPO NOME EM BRANCO PARA SAIR.")
   }
-  jogadores.forEach((valor: Jogadores) => {
-    if(valor.getPontos() < 50){
-      console.log(valor.getNome() + " FEZ PESSIMA PARTIDA");
-  } else if(valor.getPontos() >= 50 && valor.getPontos() < 100){
-      console.log(valor.getNome() + " FEZ UMA PARTIDA RUIM");
-  } else if(valor.getPontos() >= 100 && valor.getPontos() < 150){
-      console.log(valor.getNome() + "  FEZ O BÁSICO");
-  } else if(valor.getPontos() >= 150 && valor.getPontos() < 200){
-      console.log(valor.getNome() + " FOI BEM NA PARTIDA");
-  } else {
-      console.log(valor.getNome() + "  JOGOU DEMAIS");
-  } 
+  let total = 0
+  produtos.forEach((valor: Produtos) => {
+    total += valor.getPreco()
+    console.log(`NOME PRODUT: ${valor.getNome()}, PRECO: ${valor.getPreco()}`)
   })
+  console.log(`PREÇO MÉDIO DOS PRODUTOS: R$ ${(total / produtos.length)}`);
+  console.log(`PREÇO TOTAL DOS PRODUTOS: R$ ${total}`)
+
+
 }
